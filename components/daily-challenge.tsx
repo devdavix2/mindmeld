@@ -16,6 +16,9 @@ export default function DailyChallenge({ challenge }) {
   const { toast } = useToast()
   const { user } = useAuth()
 
+  // Extract the icon component from the challenge category once.
+  const CategoryIcon = getCategoryIcon(challenge.category)
+
   const handleStart = () => {
     setStatus("active")
   }
@@ -77,14 +80,14 @@ export default function DailyChallenge({ challenge }) {
     if (status === "idle") {
       return (
         <div className="flex flex-col items-center justify-center py-10">
-          <div className={`p-4 rounded-full ${getCategoryBgColor(challenge.category)} mb-6`}>\
-            <getCategoryIcon(challenge.category) className={`h-10 w-10 ${getCategoryTextColor(challenge.category)}`} />
+          <div className={`p-4 rounded-full ${getCategoryBgColor(challenge.category)} mb-6`}>
+            <CategoryIcon className={`h-10 w-10 ${getCategoryTextColor(challenge.category)}`} />
           </div>
           <h2 className="text-2xl font-bold mb-3">{challenge.title}</h2>
           <p className="text-gray-600 text-center max-w-lg mb-6">{challenge.description}</p>
           <div className="flex flex-wrap justify-center gap-3 mb-6">
             <div className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-700 flex items-center">
-              <getCategoryIcon(challenge.category) className="h-4 w-4 mr-1" />
+              <CategoryIcon className="h-4 w-4 mr-1" />
               {challenge.category}
             </div>
             <div className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-700 flex items-center">
@@ -297,4 +300,3 @@ function getDifficultyColor(difficulty) {
       return "bg-gray-500"
   }
 }
-
